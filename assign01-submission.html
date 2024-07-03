@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Alexandra Goh">
+<meta name="dcterms.date" content="2024-03-22">
+
+<title>ETC3250/5250 Assignment 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="assign01-submission_files/libs/clipboard/clipboard.min.js"></script>
+<script src="assign01-submission_files/libs/quarto-html/quarto.js"></script>
+<script src="assign01-submission_files/libs/quarto-html/popper.min.js"></script>
+<script src="assign01-submission_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="assign01-submission_files/libs/quarto-html/anchor.min.js"></script>
+<link href="assign01-submission_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="assign01-submission_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="assign01-submission_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="assign01-submission_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="assign01-submission_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="assignment.css">
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ETC3250/5250 Assignment 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alexandra Goh </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 22, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- Guide to using quarto at https://quarto.org/docs/get-started/hello/rstudio.html -->
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<section id="basic-math-and-computing-5pts" class="level4">
+<h4 class="anchored" data-anchor-id="basic-math-and-computing-5pts">1. Basic math and computing (5pts)</h4>
+<p>The handwritten answer to <span class="math display">\[(X-A)^\top S^{-1} (X-A)\]</span> is shown as below:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="./image1.jpg" class="img-fluid" width="689"></p>
+</div>
+</div>
+<p><br></p>
+<p>To compute it numerically using R code, we can do as below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse of S:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>S_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(S)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute (X-A)^T S^(-1) (X-A):</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">t</span>(X<span class="sc">-</span>A) <span class="sc">%*%</span> S_inv <span class="sc">%*%</span> (X<span class="sc">-</span>A)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The answer is:"</span>, answer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The answer is: 5.4</code></pre>
+</div>
+</div>
+<p><br></p>
+<hr>
+</section>
+<section id="ml-concepts-8pts" class="level4">
+<h4 class="anchored" data-anchor-id="ml-concepts-8pts">2. ML concepts (8pts)</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  y     pred1 pred2 bilby1 bilby2 quokka1 quokka2
+  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 bilby bilby bilby    0.8   0.8      0.2    0.2 
+2 bilby bilby bilby    0.9   0.51     0.1    0.49
+3 bilby bilby bilby    0.9   0.6      0.1    0.4 </code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="compute-the-accuracy-and-balanced-accuracy-for-each-model." class="level5">
+<h5 class="anchored" data-anchor-id="compute-the-accuracy-and-balanced-accuracy-for-each-model.">Compute the accuracy and balanced accuracy for each model.</h5>
+<p>In model 1, the accuracy is 0.778 while the balanced accuracy is 0.775.</p>
+<p>In model 2, the accuracy is 0.63 while the balanced accuracy is 0.629.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Model 1:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.778 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Balanced Accuracy: 0.775 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model 2:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.63 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Balanced Accuracy: 0.629 </code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="the-class-predictions-were-made-by-using-0.5-and-above-as-the-value-at-which-to-predict-the-observation-to-be-a-bilby.-compute-sensitivity-and-1-specificity-if-i-0.3-and-ii-0.4-were-used-instead-of-0.5." class="level5">
+<h5 class="anchored" data-anchor-id="the-class-predictions-were-made-by-using-0.5-and-above-as-the-value-at-which-to-predict-the-observation-to-be-a-bilby.-compute-sensitivity-and-1-specificity-if-i-0.3-and-ii-0.4-were-used-instead-of-0.5.">The class predictions were made by using 0.5 and above as the value at which to predict the observation to be a bilby. Compute sensitivity and 1-specificity if (i) 0.3 and (ii) 0.4 were used instead of 0.5.</h5>
+<p><strong>For Model 1:</strong></p>
+<p>If 0.3 is used, the sensitivity is 0.958 while the 1-specificity is 0.767.</p>
+<p>If 0.4 is used, the sensitivity is 0.917 while the 1-specificity is 0.5.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>For Model 1:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Threshold = 0.3</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sensitivity: 0.958 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 - Specificity: 0.767 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Threshold = 0.4</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sensitivity: 0.917 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 - Specificity: 0.5 </code></pre>
+</div>
+</div>
+<p><strong>For Model 2:</strong></p>
+<p>If 0.3 is used, the sensitivity is 0.833 while the 1-specificity is 0.667.</p>
+<p>If 0.4 is used, the sensitivity is 0.833 while the 1-specificity is 0.467.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>For Model 2:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Threshold = 0.3</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sensitivity: 0.833 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 - Specificity: 0.667 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Threshold = 0.4</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sensitivity: 0.833 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 - Specificity: 0.467 </code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="make-the-roc-curves-for-both-models-where-bilby-is-considered-the-positive-class-and-explain-which-is-the-better-of-the-two." class="level5">
+<h5 class="anchored" data-anchor-id="make-the-roc-curves-for-both-models-where-bilby-is-considered-the-positive-class-and-explain-which-is-the-better-of-the-two.">Make the ROC curves for both models, where bilby is considered the positive class, and explain which is the better of the two.</h5>
+<p>The AUC (area under the curve) represents the probability that the model will rank a randomly chosen positive instance higher than a randomly chosen negative one. A higher AUC indicates better performance in distinguishing between the positive and negative classes. Therefore, the model with the higher AUC is considered better.</p>
+<p>In this case, as Model 1 has a higher AUC (0.8354) than Model 2 (0.6451), we can conclude that Model 1 performs better in terms of discrimination ability between positive and negative instances, assuming that bilby is considered as the positive class.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="assign01-submission_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area under the curve: 0.8354</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area under the curve: 0.6451</code></pre>
+</div>
+</div>
+<p><br></p>
+<hr>
+</section>
+</section>
+<section id="visualisation-8pts" class="level4">
+<h4 class="anchored" data-anchor-id="visualisation-8pts">3. Visualisation (8pts)</h4>
+<p><br></p>
+<section id="scatterplot-matrix" class="level5">
+<h5 class="anchored" data-anchor-id="scatterplot-matrix">Scatterplot Matrix</h5>
+<p>The scatterplot matrix reveals significant clumping of data points across multiple variable pairs. This clumping suggests regions of higher density or aggregation of data points, which may indicate possible underlying patterns or structures in the data.</p>
+<p>However, based on the scatterplot matrix alone, there is no clear presence of well-defined clusters in the data. While clumps of data points are evident, the boundaries between these clumps are not clearly delineated, suggesting that the data points may belong to overlapping groups rather than distinct clusters.</p>
+<p>Additionally, certain outliers are identifiable in the scatterplot matrix. Notable outlier pairs include:</p>
+<ul>
+<li>In variable pairings involving x1, outliers are observed with respect to variables x3, x4, x5, and x6.</li>
+<li>In variable pairings involving x2, outliers are noticeable with respect to variables x3 and x4.</li>
+<li>Outlier behavior is also observed in the pairing between x4 and x6.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="assign01-submission_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="tour" class="level5">
+<h5 class="anchored" data-anchor-id="tour">Tour</h5>
+<p>According to the tour animation, the data points appear to exhibit linear patterns of movement at certain times. For instance, in some configurations, the data points seem to move along straight lines and align in a linear arrangement as the projection changes. This suggests potential linear relationships/associations between variables in the data.</p>
+<p>One reason why linear patterns are revealed in the animation is because in the tour, variables interact dynamically as the projection changes, potentially revealing hidden linear relationships or interactions between variables. Unlike scatterplot matrices, which only show pairwise relationships, the tour animation can capture higher-order interactions contributing to linear patterns in the data. Additionally, the tour explores high-dimensional space by continuously projecting it onto lower-dimensional subspaces. This exploration can reveal linear relationships or patterns not apparent in static scatterplot matrices, which show pairwise relationships in a two-dimensional grid that may not fully capture the complexity of higher-dimensional relationships.</p>
+<p>A few outliers are also noticeable at certain projections, indicating data points that deviate significantly from the overall linear trend. These outliers may represent anomalies or unique characteristics in the data.</p>
+<p>In contrast to the scatterplot matrix where no obvious clusters were identifiable, the tour animation now reveals the presence of two distinct clusters. The larger cluster exhibits data points arranged in a concave shape, spread out across the projection space. In contrast, the smaller cluster appears more compact and tightly clumped together. This observation suggests a multi-modal distribution within the data, with one cluster displaying a broader dispersion and the other forming a more densely packed group.</p>
+<p>These distinct clustering patterns highlight the complexity and multi-dimensional nature of the data, indicating potential underlying structures that may not be apparent in traditional scatterplot visualizations.</p>
+<section id="linear-patterns-outliers" class="level6">
+<h6 class="anchored" data-anchor-id="linear-patterns-outliers">Linear Patterns &amp; Outliers</h6>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="./linear1.png" class="img-fluid" width="301"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="./linear2.png" class="img-fluid" width="301"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="clusters" class="level5">
+<h5 class="anchored" data-anchor-id="clusters">Clusters</h5>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="./cluster1.png" class="img-fluid" width="301"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="./cluster2.png" class="img-fluid" width="301"></p>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="d-view-provided-by-umap-non-linear-dimension-reduction" class="level5">
+<h5 class="anchored" data-anchor-id="d-view-provided-by-umap-non-linear-dimension-reduction">2D View provided by UMAP (Non-Linear Dimension Reduction)</h5>
+<p>Based on the UMAP projection of the data on a 2D space, it is evident that the data has separated into two distinct clusters, but they exhibit noticeable differences in their appearances. One spherical-shaped cluster appears more compact and tightly grouped, predominantly located at the bottom left of the plot. On the other hand, the second cluster appears more spread out and elongated, particularly towards the right side of the plot. It is difficult to ascertain whether the data points in the extended region (i.e.&nbsp;for the second cluster) truly belong to the same larger cluster or if they represent a separate grouping entirely.</p>
+<p>The variability in the spread of data points within the second cluster could be attributed to the differing variances of the 6 variables from the <code>c7</code> dataset. This is because when variables have different variances, it suggests that they may contribute unequally to the overall spread of the data. As a result, variables with higher variances may exert more influence on the positioning of data points in the UMAP projection, leading to clusters with varying shapes and extents, as observed in the elongated cluster.</p>
+<p>Therefore, it is reasonable to infer that the data points within the compact cluster located at the bottom left likely share common characteristics or exhibit strong similarity. This is evident from the close proximity of data points within this cluster and their reduced dispersion. In contrast, the elongated cluster towards the right side of the plot displays greater dispersion among its data points. This increased dispersion may be attributed to higher variability across the dataset, suggesting a wider range of values and potentially less uniform characteristics among the data points within that cluster.</p>
+<p>Additionally, one reason why clusters are more apparent in the UMAP projection is because UMAP is a dimensionality reduction technique which preserves local and global structure in the data, and aims to map high-dimensional data onto a lower-dimensional space while retaining meaningful relationships between data points. Hence, this allows for the visualization of distinct groupings within the data whereby in this case, it is evident that there is a clear distinction between the two groups of data points.</p>
+<p>Meanwhile, scatterplot matrices are limited to pairwise comparisons and may overlook higher-order interactions or groupings.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="assign01-submission_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="dimension-reduction-15pts" class="level4">
+<h4 class="anchored" data-anchor-id="dimension-reduction-15pts">4. Dimension reduction (15pts)</h4>
+<p>Based on the summary of the PCA conducted on the Australian women’s cricket data, we can see that the first few principal components (i.e.&nbsp;PC1, PC2, PC3, PC4) tend to capture the majority of the variation in the data. In this case, PC1 alone explains 44.69% of the variance, while the first five PCs cumulatively explain approximately 85% of the total variation. The summary of the PCA analysis also shows 21 principal components in total, which matches the total number of variables in our dataset after removing the non-numeric variable (i.e.&nbsp;‘Player’).</p>
+<p><br></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Importance of components:
+                          PC1    PC2     PC3     PC4     PC5     PC6    PC7
+Standard deviation     3.0633 2.1061 1.40160 1.06832 0.98368 0.91350 0.8068
+Proportion of Variance 0.4469 0.2112 0.09355 0.05435 0.04608 0.03974 0.0310
+Cumulative Proportion  0.4469 0.6581 0.75162 0.80597 0.85205 0.89178 0.9228
+                           PC8     PC9    PC10    PC11    PC12    PC13    PC14
+Standard deviation     0.69476 0.53627 0.48002 0.41595 0.35399 0.32491 0.29751
+Proportion of Variance 0.02299 0.01369 0.01097 0.00824 0.00597 0.00503 0.00421
+Cumulative Proportion  0.94577 0.95946 0.97043 0.97867 0.98464 0.98967 0.99388
+                          PC15    PC16   PC17    PC18    PC19    PC20    PC21
+Standard deviation     0.23854 0.20395 0.1298 0.07883 0.06572 0.04946 0.01253
+Proportion of Variance 0.00271 0.00198 0.0008 0.00030 0.00021 0.00012 0.00001
+Cumulative Proportion  0.99659 0.99857 0.9994 0.99967 0.99988 0.99999 1.00000</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Based on the proportion of total variance explained by each principal component (PC), using 4 PCs is the most appropriate. This is because by doing so, it allows for the cumulative explanation of approximately 80% of the total variation.</p>
+<p>This is further validated by the Scree plot, as the part where the plot flattens out (i.e.&nbsp;the “elbow”) also occurs at 4 principal components.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="assign01-submission_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>According to the summary of the first five principal components, the variables “Matches”, “Innings”, “NotOuts”, “Runs”, “HighScore”, “BallsFaced”, “Hundreds”, “Fifties”, “Ducks”, “Fours” and “Sixes” have the highest absolute loadings along PC1. This suggests that these variables play a significant role in defining the direction of PC1 and contribute the most to the variability explained by PC1.</p>
+<p>Similarly, for PC2, the variables “End”, “Overs”, “Maidens”, “Wickets”, “Economy”, “FourWickets”, and “FiveWickets” exhibit the highest absolute loadings along PC2. This indicates that these variables are most strongly associated with PC2 and contribute substantially to the variation explained by PC2.</p>
+<p><br></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                     PC1         PC2           PC3          PC4          PC5
+Start        0.004640568 -0.06186678 -0.6188648500  0.407365602 -0.030969786
+End         -0.167029252 -0.15162206 -0.4965650204  0.257421459  0.078745932
+Matches     -0.299003786 -0.14719118  0.0489773624 -0.049146442  0.064855998
+Innings     -0.316291688  0.03929534  0.0819215988 -0.054090328  0.094677669
+NotOuts     -0.290448140 -0.05284542  0.0330736681 -0.161322955  0.134071193
+Runs        -0.312986321  0.11241772  0.0424067864  0.018704522  0.072584541
+HighScore   -0.288867613  0.11094749 -0.0225676090 -0.131958216 -0.061455132
+Average     -0.019985523  0.07919181 -0.3924808812 -0.497141538 -0.151842427
+BallsFaced  -0.309657497  0.10528165  0.0628019321 -0.010200966  0.112386552
+StrikeRate  -0.143552460 -0.01510663 -0.3301909284 -0.380655938 -0.456371260
+Hundreds    -0.229512347  0.18497116 -0.0143318772  0.241646839  0.058889911
+Fifties     -0.287515259  0.14334344 -0.0004836872  0.144729471 -0.071070086
+Ducks       -0.242695881 -0.04000158  0.1234560594  0.009781488 -0.065265093
+Fours       -0.304788695  0.14105468  0.0167105422  0.086544202  0.016026601
+Sixes       -0.287182990  0.03045976  0.0053361060  0.042097379 -0.068341072
+Overs       -0.089060900 -0.43780627  0.0417499285 -0.090856877 -0.069609700
+Maidens     -0.073910145 -0.41315024  0.0626809364  0.008260454 -0.075657424
+Wickets     -0.092627096 -0.43909971  0.0412302681 -0.068580929 -0.075998887
+Economy      0.009799055 -0.15260524 -0.2266485153 -0.308202549  0.815052507
+FourWickets -0.084656362 -0.41045616  0.1263991146 -0.019160980 -0.101554591
+FiveWickets -0.033569970 -0.28377058  0.0208265473  0.359757695  0.003562501
+Variance     9.384031066  4.43554329  1.9644939933  1.141303199  0.967622742
+Proportion   0.446858622  0.21121635  0.0935473330  0.054347771  0.046077273
+Cum. prop    0.446858622  0.65807497  0.7516223024  0.805970074  0.852047347</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>In the biplot, a distinct cluster of variables including “Hundreds”, “Fours”, “Fifties”, “Runs”, “High Score”, “BallsFaced”, “Innings”, “Sixes”, “NotOuts” “Matches” and “Ducks” is observed on the left side. This clustering indicates that these variables contribute strongly to the negative direction of PC1, implying a negative correlation with PC1. Additionally, these variables exhibit the longest arrows in the biplot, signifying their high magnitude in terms of their contribution to the negative direction of PC1. Moreover, among these variables, “Innings”, “Sixes”, “NotOuts”, and “Ducks” are positioned closer to the horizontal axis of PC1. This proximity indicates that these variables contribute more substantially to the variation explained by PC1, as they are more closely aligned with the direction defined by PC1.</p>
+<p>Meanwhile, the variables “FiveWickets”, “FourWickets”, “Maidens”, “Overs”, “Wickets”, “Start”, “Economy” and “Average” are observed to be more closely aligned with the vertical axis of PC2, signifying that these variables contribute highly to PC2. In particular, the variables “FiveWickets”, “FourWickets”, “Maidens”, “Overs”, and “Wickets” exhibit the longest arrows in the biplot, extending predominantly downwards along PC2. This indicates that these variables have a stronger influence on PC2 and contribute the most significantly to the variation explained by PC2.</p>
+<p>In terms of directionality, the variable “Average” appears to be positively correlated with PC2, while “Start”, “Economy”, “FiveWickets”, “FourWickets”, “Maidens”, “Overs”, and “Wickets” are negatively correlated with PC2. This suggests that increases in “Average” are associated with higher values of PC2, whereas increases in the other variables are associated with lower values of PC2.</p>
+<p>The biplot also reveals a notable pattern in the data where a substantial number of points cluster prominently towards the right side. This cluster forms an ‘arrowhead’ shape, with a dense convergence of points towards the tip on the right, gradually spreading out towards the left. This pattern suggests a relatively strong underlying structure in the data, as opposed to a random dispersion of values often seen in principal components.</p>
+<p>Additionally, there are some notable outliers at the left side of the biplot. These outliers, located away from the main cluster, represent data points that deviate significantly from the overall pattern observed in the principal components analysis.</p>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="assign01-submission_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><br></p>
+<p>When interpreting the two principal components, PC1 captures variability related to various batting metrics such as matches played, innings, runs scored, high score, balls faced, and batting milestones such as fours, sixes, hundreds and fifties. This suggests that players with low values on PC1 tend to have played more matches and innings (i.e.&nbsp;higher participation in the batting aspect of the cricket game), scored more runs, faced more balls, and achieved more significant batting milestones such as hundreds, fifties, and high scores. Conversely, players with high values on PC1 may have lower match participation, fewer runs scored, and fewer milestones achieved. Overall, we can infer that PC1 measures the overall batting performance of Australian women cricketers.</p>
+<p>On the other hand, PC2 measures the overall bowling performance of Australian women cricketers, capturing their effectiveness in taking wickets, containing runs, and contributing to their team’s success with the ball. This is because PC2 captures variability related to bowling performance metrics such as wickets taken, maiden overs bowled, and the ability to take crucial wickets such as four-wicket and five-wicket hauls. Players with low values on PC2 may have taken more wickets, bowled more maiden overs, as well as taken more four-wicket and five-wicket hauls. Conversely, players with high values on PC2 might have fewer wickets taken, and fewer four-wicket and five-wicket hauls.</p>
+<p>As mentioned previously, the PCA biplot reveals a notable pattern in the data where a substantial number of observations cluster towards the right side, indicating high PC1 values with a relatively equal split between positive and negative PC2 values. This suggests that there is variability in the dataset, with some players exhibiting weaker batting performance (high PC1 values) while others demonstrate a mix of both strong and weak bowling performance (positive and negative PC2 values). This could imply that in the dataset overall, there seem to be more inexperienced batters for Australia women cricket players, as indicated by their higher PC1 values.</p>
+<p>Additionally, some outliers include:</p>
+<ul>
+<li><p>Players such as AJ Healy, MM Lanning, and BL Mooney exhibit the lowest PC1 values but relatively high PC2 values. This suggests that while they may have performed well in batting metrics captured by PC1, they have not shown effectiveness in bowling, as indicated by their higher PC2 values. It is thus reasonable to infer that these players may have more experience and proficiency as batters rather than bowlers.</p></li>
+<li><p>EA Perry, on the other hand, has low values on both PC1 and PC2, suggesting a relatively balanced performance in both batting and bowling aspects.</p></li>
+<li><p>Players such as M Schutt and JL Jonassen have the lowest PC2 values but higher PC1 values compared to AJ Healy, MM Lanning, and BL Mooney. This indicates that while these two players show weaker batting performance compared to the others, they may have performed well in bowling metrics such as taking wickets, containing runs, and achieving significant bowling milestones. Therefore, we can infer that these players may be more experienced as bowlers rather than batters.</p></li>
+</ul>
+<p>Overall, the PCA analysis provides insights into the performance of Australian women cricketers, highlighting variations in both batting and bowling aspects among the players.</p>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Cook, D., &amp; Laa, U. (2023). <em>mulgar: Functions for Pre-Processing Data for Multivariate Data Visualization using Tours</em> (Version 1.0.2). [R package]. <a href="https://CRAN.R-project.org/package=mulgar" class="uri">https://CRAN.R-project.org/package=mulgar</a></p>
+<p>ESPN. (n.d.). <em>Live Cricket Score.</em> Retrieved from <a href="https://www.espncricinfo.com/live-cricket-score" class="uri">https://www.espncricinfo.com/live-cricket-score</a></p>
+<p>Kuhn, M., Wickham, H., &amp; et al.&nbsp;(2020). Tidymodels: A Collection of Packages for Modeling and Machine Learning Using Tidyverse Principles. <a href="https://www.tidymodels.org" class="uri">https://www.tidymodels.org</a></p>
+<p>Melville, J. (2023). <em>uwot: The Uniform Manifold Approximation and Projection (UMAP) Method for Dimensionality Reduction</em> (Version 0.1.16). [R package]. <a href="https://CRAN.R-project.org/package=uwot" class="uri">https://CRAN.R-project.org/package=uwot</a></p>
+<p>Robin, X., Turck, N., Hainard, A., Tiberti, N., Lisacek, F., Sanchez, J.-C., &amp; Müller, M. (2011). pROC: An Open-Source Package for R and S+ to Analyze and Compare ROC Curves. <em>BMC Bioinformatics,</em> <em>12,</em> 77. <a href="https://doi.org/10.1186/1471-2105-12-77" class="uri">https://doi.org/10.1186/1471-2105-12-77</a></p>
+<p>Schloerke, B., Cook, D., Larmarange, J., Briatte, F., Marbach, M., Thoen, E., Elberg, A., &amp; Crowley, J. (2024). <em>GGally: Extension to ‘ggplot2’</em> (Version 2.2.1). [R package]. <a href="https://CRAN.R-project.org/package=GGally" class="uri">https://CRAN.R-project.org/package=GGally</a></p>
+<p>Sievert, C. (2020). <em>Interactive Web-Based Data Visualization with R, plotly, and shiny.</em> Chapman and Hall/CRC Florida.</p>
+<p>Tang, Y., Horikoshi, M., &amp; Li, W. (2016). ggfortify: Unified Interface to Visualize Statistical Result of Popular R Packages. <em>The R Journal,</em> <em>8</em>(2), 478-489.</p>
+<p>Wickham, H. (2016). <em>ggplot2: Elegant Graphics for Data Analysis.</em> Springer-Verlag New York.</p>
+<p>Wickham, H., Cook, D., Hofmann, H., &amp; Buja, A. (2011). tourr: An R Package for Exploring Multivariate Data with Projections. <em>Journal of Statistical Software,</em> <em>40</em>(2), 1-18. <a href="http://www.jstatsoft.org/v40/i02/" class="uri">http://www.jstatsoft.org/v40/i02/</a></p>
+<p>Wickham, H., François, R., Henry, L., Müller, K., &amp; Vaughan, D. (2023). <em>dplyr: A Grammar of Data Manipulation</em> (Version 1.1.4). [R package]. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a></p>
+<p>OpenAI (2023). ChatGPT (version 3.5) [Large language model]. https://chat.openai.com/chat, full script of conversation <a href="https://chat.openai.com/share/c2885657-6db2-4333-9277-727505dd082a">here</a></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
